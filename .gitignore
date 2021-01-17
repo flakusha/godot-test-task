@@ -3,3 +3,6 @@ target/**
 
 # Ignore imported files
 .import/
+
+# Ignore Blender backup files
+*.blend*
