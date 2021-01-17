@@ -1,0 +1,109 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://src/scenes/ui_theme.tres" type="Theme" id=1]
+[ext_resource path="res://src/content/ui/arrow-left-line.svg" type="Texture" id=2]
+[ext_resource path="res://src/content/ui/stop-fill.svg" type="Texture" id=3]
+[ext_resource path="res://src/content/ui/arrow-right-line.svg" type="Texture" id=4]
+[ext_resource path="res://src/scripts/ui_Load_Model.gd" type="Script" id=5]
+[ext_resource path="res://src/scripts/ui_Rotate_Right.gd" type="Script" id=6]
+[ext_resource path="res://src/scripts/ui_Rotate_Left.gd" type="Script" id=7]
+[ext_resource path="res://src/scripts/ui_Rotate_Continuous.gd" type="Script" id=8]
+[ext_resource path="res://src/scripts/ui_Rotate_Camera.gd" type="Script" id=9]
+[ext_resource path="res://src/scripts/ui_Rotate_Stop.gd" type="Script" id=10]
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -0.396851
+margin_right = -0.396851
+theme = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 20.0
+margin_top = 20.0
+margin_right = -20.0
+margin_bottom = -20.0
+theme = ExtResource( 1 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+margin_right = 1240.0
+margin_bottom = 680.0
+theme = ExtResource( 1 )
+alignment = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+margin_top = 628.0
+margin_right = 1240.0
+margin_bottom = 680.0
+custom_constants/separation = 40
+alignment = 1
+
+[node name="Ticks" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+margin_left = 419.0
+margin_right = 573.0
+margin_bottom = 52.0
+
+[node name="Rotate_Camera" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/Ticks"]
+margin_right = 154.0
+margin_bottom = 24.0
+hint_tooltip = "Rotate camera instead of model."
+text = "Rotate camera"
+script = ExtResource( 9 )
+
+[node name="Rotate_Continuous" type="CheckBox" parent="MarginContainer/VBoxContainer/HBoxContainer/Ticks"]
+margin_top = 28.0
+margin_right = 154.0
+margin_bottom = 52.0
+hint_tooltip = "Continue rotation after direction button is pressed."
+text = "Continuous rotation"
+script = ExtResource( 8 )
+
+[node name="Buttons" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+margin_left = 613.0
+margin_right = 820.0
+margin_bottom = 52.0
+
+[node name="Rotate_Left" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer/Buttons"]
+margin_right = 36.0
+margin_bottom = 52.0
+hint_tooltip = "Rotate to the left."
+icon = ExtResource( 2 )
+script = ExtResource( 7 )
+
+[node name="Load_Model" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer/Buttons"]
+margin_left = 40.0
+margin_right = 127.0
+margin_bottom = 52.0
+hint_tooltip = "Load the model."
+text = "Load model"
+script = ExtResource( 5 )
+
+[node name="Rotate_Right" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer/Buttons"]
+margin_left = 131.0
+margin_right = 167.0
+margin_bottom = 52.0
+hint_tooltip = "Rotate to the right"
+icon = ExtResource( 4 )
+script = ExtResource( 6 )
+
+[node name="Rotate_Stop" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer/Buttons"]
+margin_left = 171.0
+margin_right = 207.0
+margin_bottom = 52.0
+hint_tooltip = "Stop rotation in case of continuous rotation.
+Double click returns camera to initial position."
+disabled = true
+icon = ExtResource( 3 )
+script = ExtResource( 10 )
+[connection signal="toggled" from="MarginContainer/VBoxContainer/HBoxContainer/Ticks/Rotate_Camera" to="MarginContainer/VBoxContainer/HBoxContainer/Ticks/Rotate_Camera" method="_on_Rotate_Camera_toggled"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/Ticks/Rotate_Continuous" to="MarginContainer/VBoxContainer/HBoxContainer/Ticks/Rotate_Continuous" method="_on_Rotate_Continuous_pressed"]
+[connection signal="toggled" from="MarginContainer/VBoxContainer/HBoxContainer/Ticks/Rotate_Continuous" to="MarginContainer/VBoxContainer/HBoxContainer/Ticks/Rotate_Continuous" method="_on_Rotate_Continuous_toggled"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/Buttons/Rotate_Left" to="MarginContainer/VBoxContainer/HBoxContainer/Buttons/Rotate_Left" method="_on_Rotate_Left_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/Buttons/Load_Model" to="MarginContainer/VBoxContainer/HBoxContainer/Buttons/Load_Model" method="_on_Load_Model_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/Buttons/Rotate_Right" to="MarginContainer/VBoxContainer/HBoxContainer/Buttons/Rotate_Right" method="_on_Rotate_Right_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/Buttons/Rotate_Stop" to="MarginContainer/VBoxContainer/HBoxContainer/Buttons/Rotate_Stop" method="_on_Rotate_Stop_pressed"]
