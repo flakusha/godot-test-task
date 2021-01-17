@@ -1,0 +1,5 @@
+# Ignore binaries builds
+target/**
+
+# Ignore imported files
+.import/
